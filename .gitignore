@@ -1,6 +1,8 @@
 <<<<<<< HEAD
 *.exe
 *.txt
+
+Assignment_1\finite_element\gmsh-3.0.6-Windows64
 =======
 # Prerequisites
 *.d
