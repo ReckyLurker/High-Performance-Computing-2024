@@ -67,14 +67,19 @@ double L2residual(double **A, double *B, double *x, const int& NUM_POINTS){
 }
 
 // Performs a single jacobi iteration // 
-void perform_jacobi_iteration(double **A, double *B, double *x, double *old_x, const int& NUM_POINTS){
+void perform_gs_sor_iteration(double **A, double *B, double *x, double *old_x, const int& NUM_POINTS, const double& omega){
     for(int i = 0; i<NUM_POINTS; ++i){
-        x[i] = B[i];
+        x[i] = omega*B[i] + (1.0-omega)*old_x[i];
         for(int j = 0; j<NUM_POINTS; ++j){
             if(j == i){
                 continue; 
             }
-            x[i] -= A[i][j]*old_x[j];
+            else if(j > i){
+                x[i] -= omega*A[i][j]*old_x[j];
+            }
+            else{ 
+                x[i] -= omega*A[i][j]*x[j];
+            }
         }
     }
 }
@@ -105,23 +110,23 @@ void reset_x(double *x, double *old_x, const int &NUM_POINTS){
 }
 
 // Solve using jacobi iteration // 
-void solve_jacobi(const char* file_location, double **A, double *B, double *x, double *old_x, double tolerance, const int& NUM_POINTS){
+void solve_gs_sor(const char* file_location, double **A, double *B, double *x, double *old_x, double tolerance, const int& NUM_POINTS, const double& omega){
     double residual = 1e6; 
     const std::chrono::time_point<std::chrono::high_resolution_clock> t_start = std::chrono::high_resolution_clock::now();
     int num_iters = 0; 
     reset_x(x, old_x, NUM_POINTS);
     while(residual >= tolerance && num_iters <= 10000){
-        perform_jacobi_iteration(A, B, x, old_x, NUM_POINTS);
+        perform_gs_sor_iteration(A, B, x, old_x, NUM_POINTS, omega);
         update_old_solution(x, old_x, NUM_POINTS);
         residual = L2residual(A, B, x, NUM_POINTS);
         // std::cout << "Residual: " << residual; 
         // std::cout << "Num_iters: " << num_iters+1 << "\n";
         ++num_iters; 
     }
-    std::cout << "Jacobi Method took: " << num_iters << " iterations for " << NUM_POINTS << " points\n";
+    std::cout << "GS-SOR Method took: " << num_iters << " iterations for " << NUM_POINTS << " points with omega: " << omega << "\n";
     const std::chrono::time_point<std::chrono::high_resolution_clock> t_end = std::chrono::high_resolution_clock::now();
     const std::chrono::duration<double> exec_time = t_end - t_start; 
-    std::cout << "Jacobi Method took: " << std::setw(9) << exec_time.count() << " seconds for " << NUM_POINTS << " points\n"; 
+    std::cout << "GS-SOR Method took: " << std::setw(9) << exec_time.count() << " seconds for " << NUM_POINTS << " points\n"; 
     save_solution(file_location, x, NUM_POINTS);
     return; 
 }
@@ -130,6 +135,7 @@ int main(int argc, char** argv){
     
     // Change this to whatever you want // 
     double tolerance = 1e-6; 
+    double omega = 1.8; 
 
     // Custom-Made function to count number of lines // 
     int NUM_POINTS = get_number_points("./finite_element/Fvec.txt");
@@ -149,7 +155,7 @@ int main(int argc, char** argv){
     double *old_x = new double[NUM_POINTS];
     
 
-    solve_jacobi("./finite_element/solution_jacobi.txt", A, B, x, old_x, tolerance, NUM_POINTS);
+    solve_gs_sor("./finite_element/solution_sor.txt", A, B, x, old_x, tolerance, NUM_POINTS, omega);
 
     /* Free Up memory taken by finite difference matrix and source vector */
     for(int i = 0; i<NUM_POINTS; ++i){

@@ -141,7 +141,7 @@ int main(int argc, char** argv){
     double tolerance = 1e-6; 
 
     // Custom-Made function to count number of lines // 
-    int NUM_POINTS = get_number_points("./finite_difference/B.txt");
+    int NUM_POINTS = get_number_points("./finite_element/Fvec.txt");
 
     // Read Coefficient Matrix A and source B // 
     double **A = new double*[NUM_POINTS];
@@ -150,8 +150,8 @@ int main(int argc, char** argv){
     }
     double *B = new double[NUM_POINTS];
 
-    read_A_from_file("./finite_difference/A.txt", A, NUM_POINTS);
-    read_B_from_file("./finite_difference/B.txt", B, NUM_POINTS);
+    read_A_from_file("./finite_element/Kmat.txt", A, NUM_POINTS);
+    read_B_from_file("./finite_element/Fvec.txt", B, NUM_POINTS);
     diagonal_preconditioning(A, B, NUM_POINTS);
 
 
@@ -159,7 +159,7 @@ int main(int argc, char** argv){
     double *old_x = new double[NUM_POINTS];
     
 
-    solve_gauss_seidel("./finite_difference/solution_gauss_seidel.txt", A, B, x, old_x, tolerance, NUM_POINTS);
+    solve_gauss_seidel("./finite_element/solution_gauss_seidel.txt", A, B, x, old_x, tolerance, NUM_POINTS);
 
     /* Free Up memory taken by finite difference matrix and source vector */
     for(int i = 0; i<NUM_POINTS; ++i){
