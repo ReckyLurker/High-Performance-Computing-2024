@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-*.exe
-*.txt
-
-Assignment_1\finite_element\gmsh-3.0.6-Windows64
-=======
 # Prerequisites
 *.d
 
@@ -36,4 +30,6 @@ Assignment_1\finite_element\gmsh-3.0.6-Windows64
 *.exe
 *.out
 *.app
->>>>>>> 8ee0a911af922122418fb1c4f66587347c76b4c2
+
+# GMSH 
+gmsh-3.0.6-Windows64
