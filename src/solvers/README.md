@@ -11,4 +11,4 @@ The iterative solvers currently implemented:
 6. Conjugate Gradient (CG) 
 7. Bi-Conjugate Gradient Stabilized (BiCGSTAB)
 
-The list is ever growing and more solvers might be added in the future. 
+The list is ever growing and more solvers might be added in the future. The solvers are based on OpenBLAS and Armadillo. 

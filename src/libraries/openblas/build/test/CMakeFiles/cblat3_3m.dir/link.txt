@@ -1,0 +1,1 @@
+/usr/bin/f95   -Wall -frecursive -fno-optimize-sibling-calls -m64 -fPIC -fno-tree-vectorize CMakeFiles/cblat3_3m.dir/cblat3_3m.f.o -o cblat3_3m  ../lib/libopenblas.a -lm 

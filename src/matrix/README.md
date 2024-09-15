@@ -4,3 +4,5 @@ This folder contains definitions for different matrix storage formats. The forma
 
 1. Dense Matrix $\mathcal{O}(N^2)$ storage space. 
 2. Sparse Matrices 
+
+Overloads were developed for the storage formats offered by Armadillo. Currently limited to sequential execution.

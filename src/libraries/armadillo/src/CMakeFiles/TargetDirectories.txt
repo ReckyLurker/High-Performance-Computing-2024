@@ -1,0 +1,16 @@
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/CMakeFiles/armadillo.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/CMakeFiles/test.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/CMakeFiles/edit_cache.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/CMakeFiles/rebuild_cache.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/CMakeFiles/list_install_components.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/CMakeFiles/install.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/CMakeFiles/install/local.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/CMakeFiles/install/strip.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/tests1/CMakeFiles/smoke_test.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/tests1/CMakeFiles/test.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/tests1/CMakeFiles/edit_cache.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/tests1/CMakeFiles/rebuild_cache.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/tests1/CMakeFiles/list_install_components.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/tests1/CMakeFiles/install.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/tests1/CMakeFiles/install/local.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src/tests1/CMakeFiles/install/strip.dir

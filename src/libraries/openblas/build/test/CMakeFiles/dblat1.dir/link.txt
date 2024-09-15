@@ -1,0 +1,1 @@
+/usr/bin/f95   -Wall -frecursive -fno-optimize-sibling-calls -m64 -fPIC -fno-tree-vectorize CMakeFiles/dblat1.dir/dblat1.f.o -o dblat1  ../lib/libopenblas.a -lm 

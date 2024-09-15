@@ -1,0 +1,1 @@
+/usr/bin/c++  -O2 CMakeFiles/smoke_test.dir/smoke_test.cpp.o -o smoke_test  -Wl,-rpath,/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src ../libarmadillo.so.14.0.2 /usr/local/lib/libopenblas.a /usr/lib/x86_64-linux-gnu/liblapack.so 

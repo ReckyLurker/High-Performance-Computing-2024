@@ -1,0 +1,1 @@
+/usr/bin/f95   -Wall -frecursive -fno-optimize-sibling-calls -m64 -fPIC CMakeFiles/xdmdeigtstz.dir/zchkdmd.f90.o -o xdmdeigtstz  ../../../lib/libopenblas.a -lm 
