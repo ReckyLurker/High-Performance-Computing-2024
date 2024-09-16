@@ -37,7 +37,8 @@ public:
     DenseMatrix operator+(const DenseMatrix& B) const; 
 
     // Matrix Multiplication //
-    DenseMatrix operator*(const DenseMatrix& B) const; 
+    DenseMatrix operator*(const DenseMatrix& B) const; // Matrix Matrix Multiplication
+    std::vector<double> operator*(const std::vector<double>& B) const; // Matrix Vector Multiplication  
 };
 
 #endif // DENSEMATRIX_HPP

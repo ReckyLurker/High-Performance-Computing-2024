@@ -9,7 +9,7 @@
 #define NC "\033[0m" // Reset terminal color 
 
 
-#define BLOCK_SIZE 32
+#define BLOCK_SIZE 32 // For block matrix multiplication, matrix vector product, etc. 
 
 // Constructor
 DenseMatrix::DenseMatrix() : Matrix(0,0), data(std::vector<std::vector<double>>()) {}
@@ -97,6 +97,7 @@ void DenseMatrix::load(const char* filename) {
     *this = DenseMatrix(n_rows, n_cols, data); // Update the Matrix 
 }
 
+// Extract Matrix Diagonal // 
 std::vector<double> DenseMatrix::diag(){
     std::vector<double> diagonal; 
     if(n_rows != n_cols){
@@ -194,3 +195,20 @@ DenseMatrix DenseMatrix::operator*(const DenseMatrix& B) const {
     return C; 
 }
 
+// Matrix Vector Multiplication // 
+std::vector<double> DenseMatrix::operator*(const std::vector<double>& B) const {
+    if (B.size() != n_cols) {
+        std::string error = std::string(RED) + std::string("Incompatible Matrix-Vector") + std::string(NC) + std::string("\n");
+        throw std::invalid_argument(error);
+    }
+
+    std::vector<double> result(n_rows, 0.0);
+
+    for (std::size_t i = 0; i < n_rows; ++i) {
+        for (std::size_t j = 0; j < cols; ++j) {
+            result[i] += data[i][j] * vec[j]; // Cache Friendly
+        }
+    }
+
+    return result;
+}
