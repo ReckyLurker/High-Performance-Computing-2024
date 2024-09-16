@@ -1,1 +1,0 @@
-/usr/bin/c++  -O2 CMakeFiles/HPSC.dir/src/main.cpp.o -o HPSC  -Wl,-rpath,/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/src/libraries/armadillo/src /usr/local/lib/libopenblas.a ../src/libraries/armadillo/src/libarmadillo.so -lm 

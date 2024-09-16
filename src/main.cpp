@@ -2,7 +2,6 @@
 #include <armadillo>
 #include "matrix.hpp"
 
-#include <chrono> 
 
 int main(void){
 
@@ -11,7 +10,7 @@ int main(void){
     arma::SpMat<double> A = loadCoordAscii("../matrix.txt");
     arma::Col<double> sourceVec;
     sourceVec.load("../sourcevec.txt", arma::raw_ascii); // Source Vector will always be in raw ascii form. 
-
+    std::cout << A.n_rows << " " << A.n_cols << "\n";
     
 
 }
