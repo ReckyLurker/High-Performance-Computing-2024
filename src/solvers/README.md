@@ -12,3 +12,4 @@ The iterative solvers currently implemented:
 7. Bi-Conjugate Gradient Stabilized (BiCGSTAB)
 
 The list is ever growing and more solvers might be added in the future. The solvers are based on OpenBLAS and Armadillo. 
+This also includes preconditioners. Currently, only Diagonal (JACOBI) preconditioner is implemented. 

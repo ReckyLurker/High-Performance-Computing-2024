@@ -1,0 +1,3 @@
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/build/CMakeFiles/HPSC.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/build/CMakeFiles/edit_cache.dir
+/home/recklurker/home/recklurker/codes/High-Performance-Computing-2024/build/CMakeFiles/rebuild_cache.dir
