@@ -28,6 +28,7 @@ std::vector<double> gauss_seidel_sor(const std::vector<std::vector<double>>& A, 
 std::vector<double> cg(const std::vector<std::vector<double>>& A, const std::vector<double>& B, std::vector<double> x0, const double tol, const int max_iter);
 std::vector<double> minres(const std::vector<std::vector<double>>& A, const std::vector<double>& B, std::vector<double> x0, const double tol, const int max_iter);
 std::vector<double> steepest_descent(const std::vector<std::vector<double>>& A, const std::vector<double>& B, std::vector<double> x0, const double tol, const int max_iter);
+std::vector<double> bicgstab(const std::vector<std::vector<double>>& A, const std::vector<double>& B, std::vector<double> x0, const double tol, const int max_iter);
 
 
 int main() {
@@ -53,7 +54,7 @@ int main() {
     // Solve Dense Linear System Using Different Iterative Methods // 
     std::vector<double> x0(B.size(), 0.0);
     std::vector<double> x0_temp = x0;
-    std::vector<double> x_jacobi = jacobi(A, B, x0, 1e-6, 1000); // jacobi(A, B, initial_guess, tol, max_iter);
+    std::vector<double> x_jacobi = jacobi(A, B, x0, 1e-8, 1000); // jacobi(A, B, initial_guess, tol, max_iter);
     x0 = x0_temp;
     std::vector<double> x_gs = gauss_seidel(A, B, x0, 1e-6, 1000); // gauss_seidel(A, B, initial_guess, tol, max_iter)
     x0 = x0_temp;
@@ -63,7 +64,9 @@ int main() {
     x0 = x0_temp;
     std::vector<double> x_minres = minres(A, B, x0, 1e-6, 1000); // minres(A, B, initial_guess, tol, max_iter)
     x0 = x0_temp;
-    std::vector<double> x_steepest_descent = steepest_descent(A, B, x0, 1e-6, 1000); // steepest_descent(A, B, initial_guess, tol, max_iter)
+    std::vector<double> x_steepest_descent = steepest_descent(A, B, x0, 1e-8, 1000); // steepest_descent(A, B, initial_guess, tol, max_iter)
+    x0 = x0_temp;
+    std::vector<double> x_bicgstab = bicgstab(A, B, x0, 1e-8, 1000); // bicgstab(A, B, initial_guess, tol, max_iter)
     return 0;
 }
 
@@ -629,6 +632,67 @@ std::vector<double> steepest_descent(const std::vector<std::vector<double>>& A, 
         if(iter >= last_iter + BATCH_SIZE){
             last_iter = iter; 
             std::cout << YELLOW << "Steepest Descent Method -> Residual: " << residual << " Iterations: " << iter << NC << "\n";
+        } 
+    }
+    std::cout << RED << "Maximum Iterations reached or solution couldn't converge." << NC << std::endl;
+    return x;
+}
+
+// BiCGSTAB Iteration // 
+std::vector<double> bicgstab(const std::vector<std::vector<double>>& A, const std::vector<double>& B, std::vector<double> x0 = std::vector<double>(), const double tol = 1e-6, const int max_iter = 1000){
+    std::size_t n_rows = A.size();
+    if(n_rows == 0){
+        std::string error = std::string(RED) + std::string("Empty Matrix A") + std::string(NC) + std::string("\n");
+        throw std::runtime_error(error);
+    } 
+    std::size_t n_cols = A[0].size();
+
+    if(n_rows != n_cols){
+        std::string error = std::string(RED) + std::string("BICGSTAB only for Square Matrices") + std::string(NC) + std::string("\n");
+        throw std::runtime_error(error);
+    }
+
+    if(x0.size() == 0){
+        x0 = std::vector<double>(n_rows, 0.0);
+    }
+
+    std::vector<double> x = x0; 
+    std::vector<double> r = subtract(B, matvecmul(A,x));
+    std::vector<double> r_hat = r; 
+    std::vector<double> p = r;
+    
+    std::vector<double> Ap = matvecmul(A,p);
+    std::vector<double> s = p; 
+    std::vector<double> As = matvecmul(A,s);
+
+    int iter = 0; 
+    int last_iter = 0;
+    double residual = 1e6; 
+
+    while(residual > tol && iter <= max_iter){
+        p = r;
+        Ap = matvecmul(A,p);
+        double alpha = dot(r, r_hat)/(dot(Ap, r_hat) + VSMALL);
+        s = subtract(r, scale(Ap, alpha));
+        As = matvecmul(A,s);
+        double omega = dot(As, s)/(dot(As,As) + VSMALL);
+        x = add(add(x, scale(p, alpha)), scale(s,omega));
+        double temp = dot(r, r_hat);
+        r = subtract(s, scale(As, omega));
+        double beta = dot(r, r_hat)/(temp + VSMALL) * (alpha/(omega + VSMALL));
+        p = add(r, scale(subtract(p, scale(Ap, omega)), beta));
+
+        residual = norm(x, x0);
+        x0 = x;
+        if(residual < tol){
+            std::cout << GREEN << "BICGSTAB Method -> Final Residual: " << residual << " Iterations: " << iter << NC << "\n";
+            std::cout << GREEN << "Solution Converged" << NC << std::endl;
+            return x;
+        }
+        ++iter;
+        if(iter >= last_iter + BATCH_SIZE){
+            last_iter = iter; 
+            std::cout << YELLOW << "BICGSTAB Method -> Residual: " << residual << " Iterations: " << iter << NC << "\n";
         } 
     }
     std::cout << RED << "Maximum Iterations reached or solution couldn't converge." << NC << std::endl;
